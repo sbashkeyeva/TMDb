@@ -113,6 +113,7 @@ class NetworkAdapter: NetworkService {
     }
     
 }
+
 //let genresRequestData = GenresRequestData(parameters: [:])
 //var networkAdapter = NetworkAdapter(session: session)
 //var xx = networkAdapter.perform(request: genresRequestData.urlRequest) { (result) in

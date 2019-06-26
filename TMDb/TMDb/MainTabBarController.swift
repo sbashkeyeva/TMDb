@@ -14,7 +14,6 @@ class MainTabBarController: UITabBarController {
         super.viewDidLoad()
         
         setupTabBar()
-        self.navigationController?.navigationBar.topItem?.title = "YourTitle";
     }
     
     func setupTabBar(){

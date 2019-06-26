@@ -24,13 +24,12 @@ class MoviesViewController: UIViewController {
     var index = 0
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController!.navigationBar.topItem!.title = "ShowTime"
-        let attrs = [
-            NSAttributedString.Key.foregroundColor: UIColor.red,
-            NSAttributedString.Key.font: UIFont(name: "Georgia-Bold", size: 50)!
-        ]
-        
-        UINavigationBar.appearance().titleTextAttributes = attrs
+//        self.navigationController!.navigationBar.topItem!.title = "ShowTime"
+//        let attrs = [
+//            NSAttributedString.Key.foregroundColor: UIColor.red,
+//            NSAttributedString.Key.font: UIFont(name: "Georgia-Bold", size: 50)!
+//        ]
+//        UINavigationBar.appearance().titleTextAttributes = attrs
         addSubviews()
         addConstraints()
     }

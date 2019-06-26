@@ -40,7 +40,7 @@ class GenresViewModel: GenersViewModelProtocol {
                 let list: GenresContainer = convert(object: object)
                 
                 for i in list.genres {
-                    print(i.name)
+//                    print(i.name)
                     genres.append(i)
                 }
                 self?.delegate?.performOnFetch(genres: genres)

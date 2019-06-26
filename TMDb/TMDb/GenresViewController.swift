@@ -23,7 +23,6 @@ class GenresViewController: UIViewController {
         view.backgroundColor = .yellow
         addSubviews()
         addConstraints()
-        
         viewModel?.fetchGenres()
     }
     
