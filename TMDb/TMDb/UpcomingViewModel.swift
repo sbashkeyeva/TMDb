@@ -23,7 +23,7 @@ class UpcomingViewModel: UpcomingViewModelProtocol {
                 print("list \(list)")
                 for i in list.results {
                     upcomingMovies.append(i)
-                    print(i)
+//                    print(i)
                 }
                 
                 self?.delegate?.performOnFetch(movies: upcomingMovies)

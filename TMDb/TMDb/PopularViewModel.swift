@@ -20,18 +20,18 @@ class PopularViewModel: PopularViewModelProtocol {
         _ = networkAdapter.perform(request: popularMoviesRequestData.urlRequest) { [weak self] result in
             switch result {
             case .success(let object):
-                print("success")
+//                print("success")
                 let list: MovieContainer = convert(object: object)
-                print("list \(list)")
+//                print("list \(list)")
                 for i in list.results {
                     popularMovies.append(i)
-                    print(i.poster_path)
-                     print(i)
+//                    print(i.poster_path)
+//                     print(i)
                 }
                
                 self?.delegate?.performOnFetch(movies: popularMovies )
             case .failure(let error):
-                print("failure")
+//                print("failure")
                 self?.delegate?.performOnError(error)
             }
         }

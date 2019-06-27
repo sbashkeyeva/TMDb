@@ -7,6 +7,8 @@
 //
 
 import Foundation
-class MovieDetail {
-    
+class MovieDetail: Codable {
+    let poster_path:String?
+    let overview: String?
+    let title: String?
 }

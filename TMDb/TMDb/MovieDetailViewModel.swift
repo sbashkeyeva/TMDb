@@ -19,10 +19,14 @@ class MovieDetailViewModel: MovieDetailViewModelProtocol {
         _ = networkAdapter.perform(request: movieDetailRequestData.urlRequest) { [weak self] result in
             switch result {
             case .success(let object):
-                print("success")
+//                print("success")
+//                print("deatail movie object",object)
+                let movie: MovieDetail = convert(object: object)
+//                print("movie",movie)
+                movieDetail.append(movie)
                 self?.delegate?.performOnFetch(movie: movieDetail)
             case .failure(let error):
-                print("failure")
+//                print("failure")
                 self?.delegate?.performOnError(error)
             }
         }

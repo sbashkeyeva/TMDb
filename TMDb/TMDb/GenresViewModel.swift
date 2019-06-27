@@ -12,7 +12,7 @@ func convert<T: Codable>(object: Any) -> T {
     if let data = object as? Data {
         do {
             let json = try JSONSerialization.jsonObject(with: data, options: [])
-            print(json)
+//            print(json)
         } catch {
             print("JSON error: \(error.localizedDescription)")
         }

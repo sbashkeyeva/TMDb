@@ -42,7 +42,7 @@ class PopularViewController: UIViewController, MovieDelegate {
         indicatorView.startAnimating()
         viewModel = PopularViewModel()
         viewModel?.fetchPopularMovies()
-        print("populaaaaaaar \(popularMovies)")
+//        print("populaaaaaaar \(popularMovies)")
     }
     func setupSubviews() {
         screenSize = UIScreen.main.bounds
@@ -105,7 +105,7 @@ extension PopularViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let index = indexPath.row
         let popID = popularMovies[index].id
-        print(popID)
+//        print(popID)
         let vc = MovieDetailViewController()
         vc.movieID = popID
         vc.delegate = self
