@@ -39,6 +39,14 @@ extension RequestDataProtocol {
         return urlRequest
     }
 }
+
+struct GenreMoviesRequestData: RequestDataProtocol {
+    let genreID: Int
+    var parameters: [String : String]
+    var endpoint: String { return  "/discover/movie" }
+    var httpMethod: HTTPRequestType { return .GET }
+}
+
 struct PopularMoviesRequestData: RequestDataProtocol {
     let endpoint = "/movie/popular"
     var httpMethod: HTTPRequestType { return .GET }

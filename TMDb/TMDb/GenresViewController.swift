@@ -64,7 +64,10 @@ extension GenresViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let vc = GenreMoviesViewController()
+        let genId = genres[indexPath.row].id
+        vc.genreID = genId
+        navigationController?.pushViewController(vc, animated: true)
     }
         
 }
