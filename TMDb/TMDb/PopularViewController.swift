@@ -105,9 +105,10 @@ extension PopularViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let index = indexPath.row
         let popID = popularMovies[index].id
-//        print(popID)
         let vc = MovieDetailViewController()
         vc.movieID = popID
+        let vcAnother = MovieImagesViewController()
+        vcAnother.movieID = popID
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }

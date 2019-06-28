@@ -17,16 +17,16 @@ class SimilarViewModel: SimilarViewModelProtocol {
         _ = networkAdapter.perform(request: similarMoviesRequestData.urlRequest) { [weak self] result in
             switch result {
             case .success(let object):
-                print("success")
-                print("deatail movie object",object)
+//                print("success")
+//                print("deatail movie object",object)
                 let movies: SimilarContainer = convert(object: object)
                 for i in movies.results{
                      similarMovies.append(i)
-                    print(i.poster_path)
+//                    print(i.poster_path)
                 }
                 self?.delegate?.performOnFetch(movies: similarMovies)
             case .failure(let error):
-                print("failure")
+//                print("failure")
                 self?.delegate?.performOnError(error)
             }
         }

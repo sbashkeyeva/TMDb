@@ -26,7 +26,7 @@ extension RequestDataProtocol {
     var url: String {
         var newParameters = parameters
         newParameters["api_key"] = "02da584cad2ae31b564d940582770598"
-        newParameters["language"] = "en-US"
+//        newParameters["language"] = "en-US"
         let queryParameters = newParameters.map { $0 + "=" + $1 }.joined(separator: "&")
         return baseUrl + endpoint + "?" + queryParameters
     }
@@ -72,6 +72,13 @@ struct GenresRequestData: RequestDataProtocol {
     var httpMethod: HTTPRequestType { return .GET }
     
     var parameters: [String : String]
+}
+
+struct ImageMoviesRequestData: RequestDataProtocol {
+    var parameters: [String : String]
+    let movieId: Int
+    var endpoint: String { return "/movie/"+String(movieId)+"/images" }
+    var httpMethod: HTTPRequestType { return .GET }
 }
 
 var session: URLSession = {

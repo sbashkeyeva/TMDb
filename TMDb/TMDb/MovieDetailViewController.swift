@@ -37,6 +37,7 @@ class MovieDetailViewController: UIViewController {
     let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewLayout.init())
     let layout : UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     let indicatorView = UIActivityIndicatorView(style: .gray)
+    var numberThatINeed: Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -46,8 +47,11 @@ class MovieDetailViewController: UIViewController {
         if let id = movieID {
             indicatorView.startAnimating()
             viewModel?.fetchMovieDetail(by: id)
+            self.numberThatINeed = id
         }
         print("movie id is fetched", movieID)
+        print("number that I really need shit",numberThatINeed)
+        
         
         viewModelSimilar = SimilarViewModel()
         if let simId = movieID {
@@ -141,6 +145,14 @@ class MovieDetailViewController: UIViewController {
         seeButton.layer.borderWidth = 1
         seeButton.layer.borderColor = UIColor.black.cgColor
         seeButton.layer.cornerRadius = 5
+        seeButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+    }
+    @objc func buttonAction(sender: UIButton) {
+        print("Button tapped")
+        let vc = MovieImagesViewController()
+        vc.movieID = numberThatINeed
+        navigationController?.pushViewController(vc, animated: true)
+       
     }
 
 }
@@ -149,7 +161,7 @@ extension MovieDetailViewController: MovieDetailViewModelDelegate {
         DispatchQueue.main.async {
             self.indicatorView.stopAnimating()
             self.movie = movie
-            print("dispatch",movie)
+//            print("dispatch",movie)
             self.label.text = movie[0].title
             self.overviewLabel.text = movie[0].overview
             self.poster = movie[0].poster_path!

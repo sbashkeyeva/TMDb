@@ -22,6 +22,7 @@ func convert<T: Codable>(object: Any) -> T {
     guard let codableObject = try? JSONDecoder().decode(T.self, from: object as! Data) else {
         fatalError("Error: Couldn't decode data into Blog")
     }
+    print("codable object", codableObject)
     
     return codableObject
 }
