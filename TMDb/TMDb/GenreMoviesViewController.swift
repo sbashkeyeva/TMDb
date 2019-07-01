@@ -11,6 +11,7 @@ import UIKit
 class GenreMoviesViewController: UIViewController {
     let names = ["asas","sds","sdsd"]
     var genreMovies = [GenreMovie]()
+    let indicatorView = UIActivityIndicatorView()
     var viewModel:GenreMoviesViewModelProtocol? {
         didSet{
             viewModel?.delegate = self
@@ -21,6 +22,7 @@ class GenreMoviesViewController: UIViewController {
     var genreID: Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
+        indicatorView.startAnimating()
         viewModel = GenreMoviesViewModel()
         viewModel?.fetchGenreMovies(by: genreID)
         setupSubviews()
@@ -66,11 +68,13 @@ extension GenreMoviesViewController: GenreMoviesViewModelDelegate {
         DispatchQueue.main.async {
             self.genreMovies = genreMovies
             self.collectionView.reloadData()
+            self.indicatorView.stopAnimating()
         }
     }
     
     func performOnError(_ error: Error) {
         DispatchQueue.main.async {
+            self.indicatorView.stopAnimating()
             let alertController = UIAlertController(title: "Ошибка", message: "Возникла проблема при загрузке данных", preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "OK", style: .cancel)
             alertController.addAction(cancelAction)

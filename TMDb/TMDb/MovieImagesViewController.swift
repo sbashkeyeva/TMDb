@@ -17,6 +17,7 @@ class MovieImagesViewController: UIViewController {
     let names = ["as","asa","asas"]
     var imageMovies = [ImageMovie]()
     var movieID: Int?
+    let indicatorView = UIActivityIndicatorView()
     let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewLayout.init())
     let layout : UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     override func viewDidLoad() {
@@ -27,8 +28,10 @@ class MovieImagesViewController: UIViewController {
         setupSubviews()
         setupConstraints()
         setupStyle()
+        
         viewModel = MovieImagesViewModel()
         if let movId = movieID {
+            indicatorView.startAnimating()
             viewModel?.fetchMovieImages(by: movId)
             
         }
@@ -91,12 +94,14 @@ extension MovieImagesViewController: MovieImagesViewModelDelegate {
         DispatchQueue.main.async {
             self.imageMovies = images
             self.collectionView.reloadData()
+            self.indicatorView.stopAnimating()
             print("Imagessssss sukakakakakakka", self.imageMovies)
         }
     }
     
     func performOnError(_ error: Error) {
         DispatchQueue.main.async {
+            self.indicatorView.stopAnimating()
             let alertController = UIAlertController(title: "Ошибка", message: "Возникла проблема при загрузке данных", preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "ОК", style: .cancel)
             alertController.addAction(cancelAction)

@@ -17,12 +17,13 @@ class GenresViewController: UIViewController {
     
     let tableView = UITableView()
     var genres = [Genre]()
-    
+    let indicatorView = UIActivityIndicatorView(style: .gray)
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .yellow
         addSubviews()
         addConstraints()
+        indicatorView.startAnimating()
         viewModel?.fetchGenres()
     }
     
@@ -76,6 +77,7 @@ extension GenresViewController: GenersViewModelDelegate {
     
     func performOnError(_ error: Error) {
         DispatchQueue.main.async {
+            self.indicatorView.stopAnimating()
             let alertController = UIAlertController(title: "Ошибка", message: "Возникла проблема при загрузке данных", preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "OK", style: .cancel)
             alertController.addAction(cancelAction)
@@ -87,6 +89,7 @@ extension GenresViewController: GenersViewModelDelegate {
         DispatchQueue.main.async {
             self.genres = genres
             self.tableView.reloadData()
+            self.indicatorView.stopAnimating()
         }
     }
 }

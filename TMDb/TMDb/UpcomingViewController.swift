@@ -18,12 +18,14 @@ class UpcomingViewController: UIViewController {
     }
     let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewLayout.init())
     let layout : UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
+    let indicatorView = UIActivityIndicatorView(style: .gray)
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .green
         setupSubviews()
         setupConstraints()
         setupStyle()
+        indicatorView.startAnimating()
         viewModel = UpcomingViewModel()
         viewModel?.fetchUpcomingMovies()
     }
@@ -85,15 +87,18 @@ extension UpcomingViewController: UpcomingViewModelDelegate {
         DispatchQueue.main.async {
             self.upcomingMovies = movies
             self.collectionView.reloadData()
+            self.indicatorView.stopAnimating()
         }
     }
     
     func performOnError(_ error: Error) {
         DispatchQueue.main.async {
+            self.indicatorView.stopAnimating()
             let alertController = UIAlertController(title: "Ошибка", message: "Возникла проблема при загрузке данных", preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "OK", style: .cancel)
             alertController.addAction(cancelAction)
             self.present(alertController, animated: true)
+            
         }
     }
     
