@@ -8,7 +8,7 @@
 
 import Foundation
 
-func convert<T: Codable>(object: Any) -> T {
+func convert<T: Codable>(object: Data) -> T {
     if let data = object as? Data {
         do {
             let json = try JSONSerialization.jsonObject(with: data, options: [])
@@ -18,12 +18,10 @@ func convert<T: Codable>(object: Any) -> T {
         }
         
     }
-    
-    guard let codableObject = try? JSONDecoder().decode(T.self, from: object as! Data) else {
+    guard let codableObject = try? JSONDecoder().decode(T.self, from: object) else {
         fatalError("Error: Couldn't decode data into Blog")
     }
     print("codable object", codableObject)
-    
     return codableObject
 }
 
@@ -40,9 +38,9 @@ class GenresViewModel: GenersViewModelProtocol {
             case .success(let object):
                 let list: GenresContainer = convert(object: object)
                 
-                for i in list.genres {
+                for item in list.genres {
 //                    print(i.name)
-                    genres.append(i)
+                    genres.append(item)
                 }
                 self?.delegate?.performOnFetch(genres: genres)
             case .failure(let error):

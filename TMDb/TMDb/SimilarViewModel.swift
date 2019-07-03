@@ -20,8 +20,8 @@ class SimilarViewModel: SimilarViewModelProtocol {
 //                print("success")
 //                print("deatail movie object",object)
                 let movies: SimilarContainer = convert(object: object)
-                for i in movies.results{
-                     similarMovies.append(i)
+                for item in movies.results {
+                     similarMovies.append(item)
 //                    print(i.poster_path)
                 }
                 self?.delegate?.performOnFetch(movies: similarMovies)
@@ -31,6 +31,4 @@ class SimilarViewModel: SimilarViewModelProtocol {
             }
         }
     }
-    
-    
 }

@@ -8,7 +8,12 @@
 
 import Foundation
 class MovieDetail: Codable {
-    let poster_path:String?
+    let posterPath: String?
     let overview: String?
     let title: String?
+    enum CodingKeys: String, CodingKey {
+        case posterPath = "poster_path"
+        case overview
+        case title
+    }
 }

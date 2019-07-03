@@ -13,7 +13,8 @@ class ImageMovieContainer : Codable {
     let posters: [ImageMovie]
 }
 class ImageMovie: Codable {
-    let file_path: String?
+    let filePath: String?
+    enum CodingKeys: String, CodingKey{
+        case filePath = "file_path"
+    }
 }
-
-

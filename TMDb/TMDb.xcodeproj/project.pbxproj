@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B18B0661EFD9273EF44E299 /* Pods_TMDb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A780C6025681864A70B6FD09 /* Pods_TMDb.framework */; };
 		D349FCED22C0A009001F5EA7 /* PopularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D349FCEC22C0A009001F5EA7 /* PopularViewController.swift */; };
 		D349FCEF22C0A336001F5EA7 /* UpcomingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D349FCEE22C0A336001F5EA7 /* UpcomingViewController.swift */; };
 		D349FCF222C0BCFF001F5EA7 /* NetworkAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D349FCF122C0BCFF001F5EA7 /* NetworkAdapter.swift */; };
@@ -62,6 +63,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		78BAC16466E3DA1AA8B53F6A /* Pods-TMDb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TMDb.release.xcconfig"; path = "Target Support Files/Pods-TMDb/Pods-TMDb.release.xcconfig"; sourceTree = "<group>"; };
+		91C1098F3C97B2BADF730F5B /* Pods-TMDb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TMDb.debug.xcconfig"; path = "Target Support Files/Pods-TMDb/Pods-TMDb.debug.xcconfig"; sourceTree = "<group>"; };
+		A780C6025681864A70B6FD09 /* Pods_TMDb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TMDb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D349FCEC22C0A009001F5EA7 /* PopularViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularViewController.swift; sourceTree = "<group>"; };
 		D349FCEE22C0A336001F5EA7 /* UpcomingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingViewController.swift; sourceTree = "<group>"; };
 		D349FCF122C0BCFF001F5EA7 /* NetworkAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAdapter.swift; sourceTree = "<group>"; };
@@ -123,12 +127,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B18B0661EFD9273EF44E299 /* Pods_TMDb.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C62843F0E768D36CFFDF033 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				91C1098F3C97B2BADF730F5B /* Pods-TMDb.debug.xcconfig */,
+				78BAC16466E3DA1AA8B53F6A /* Pods-TMDb.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		347F06CED75FF75884474194 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A780C6025681864A70B6FD09 /* Pods_TMDb.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D349FCF022C0BCA8001F5EA7 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,6 +176,8 @@
 			children = (
 				D3DACE3522BB9EA40046E93F /* TMDb */,
 				D3DACE3422BB9EA40046E93F /* Products */,
+				0C62843F0E768D36CFFDF033 /* Pods */,
+				347F06CED75FF75884474194 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -316,9 +340,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D3DACE4522BB9EA70046E93F /* Build configuration list for PBXNativeTarget "TMDb" */;
 			buildPhases = (
+				285507532D535355072DC63C /* [CP] Check Pods Manifest.lock */,
 				D3DACE2F22BB9EA40046E93F /* Sources */,
 				D3DACE3022BB9EA40046E93F /* Frameworks */,
 				D3DACE3122BB9EA40046E93F /* Resources */,
+				D344055D22CA0E4400B9A4C8 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -373,6 +399,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		285507532D535355072DC63C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TMDb-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D344055D22CA0E4400B9A4C8 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D3DACE2F22BB9EA40046E93F /* Sources */ = {
@@ -564,6 +632,7 @@
 		};
 		D3DACE4622BB9EA70046E93F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 91C1098F3C97B2BADF730F5B /* Pods-TMDb.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -581,6 +650,7 @@
 		};
 		D3DACE4722BB9EA70046E93F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 78BAC16466E3DA1AA8B53F6A /* Pods-TMDb.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

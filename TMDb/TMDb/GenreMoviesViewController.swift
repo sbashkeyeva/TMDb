@@ -91,16 +91,19 @@ extension GenreMoviesViewController: UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: GenreMoviesCollectionViewCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
         let url = "https://image.tmdb.org/t/p/w500"
-        guard let posterPath = genreMovies[indexPath.row].poster_path else {
+        guard let posterPath = genreMovies[indexPath.row].posterPath else {
             return collectionView.dequeueReusableCell(withReuseIdentifier: "cellID", for: indexPath)
         }
         let urlImage = url+posterPath
-        let imageUrl = NSURL(string: urlImage)
-        let imageData = NSData(contentsOf: imageUrl as! URL)
-        cell.imageView.image = UIImage(data: imageData as! Data)
-        
+        guard let imageUrl = URL(string: urlImage) else { return UICollectionViewCell() }
+        guard let imageData = try? Data(contentsOf: imageUrl) else { return UICollectionViewCell() }
+        var image = UIImage()
+        if let data = imageData as? Data {
+            image = UIImage(data: data) ?? UIImage()
+        } else {
+            image = UIImage()
+        }
+        cell.imageView.image = image
         return cell
     }
-    
-    
 }

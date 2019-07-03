@@ -9,7 +9,7 @@
 import Foundation
 
 class GenreMoviesViewModel: GenreMoviesViewModelProtocol {
-    var delegate: GenreMoviesViewModelDelegate?
+    weak var delegate: GenreMoviesViewModelDelegate?
     
     func fetchGenreMovies(by id: Int) {
         var genreMovies = [GenreMovie]()
@@ -19,9 +19,8 @@ class GenreMoviesViewModel: GenreMoviesViewModelProtocol {
             switch result {
             case .success(let object):
                 let list: GenreMovieContainer = convert(object: object)
-                for i in list.results {
-                    genreMovies.append(i)
-                    print(genreMovies[0].poster_path)
+                for item in list.results {
+                    genreMovies.append(item)
                 }
                 self?.delegate?.performOnFetch(genreMovies: genreMovies)
             case .failure(let error):
@@ -29,6 +28,4 @@ class GenreMoviesViewModel: GenreMoviesViewModelProtocol {
             }
         }
     }
-    
-    
 }

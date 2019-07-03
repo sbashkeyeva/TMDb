@@ -8,18 +8,20 @@
 
 import Foundation
 
+
+
 class MovieContainer:Codable {
     let results:[PopularMovie]
-    let page: Int
+   
 }
 class PopularMovie:Codable {
     let id: Int
-//    let originalLanguage: String?
-//    let originalTitle: String?
-    let poster_path: String?
-//    enum CodinKeys:String,CodingKey {
-//        case posterPath = "poster_path"
-////        case originalLanguage = "original_language"
-////        case originalTitle = "original_title"
-//    }
+    let posterPath: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case posterPath = "poster_path"
+        
+    }
+    
 }

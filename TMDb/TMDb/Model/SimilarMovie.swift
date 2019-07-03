@@ -13,5 +13,8 @@ class SimilarContainer: Codable {
 }
 
 class SimilarMovie: Codable {
-    let poster_path: String?
+    let posterPath: String?
+    enum CodingKeys: String, CodingKey {
+        case posterPath = "poster_path"
+    }
 }

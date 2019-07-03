@@ -11,10 +11,9 @@ import UIKit
 class PopularCollectionViewCell: UICollectionViewCell, ReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .yellow
         setupSubviews()
         setupConstraints()
-//        setupStyle()
+        setupStyle()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -36,8 +35,15 @@ class PopularCollectionViewCell: UICollectionViewCell, ReusableView {
         
     }
     func setupStyle() {
-        let image:UIImage = UIImage(named:"flower")!
-        imageView.image = image
+        
+        contentView.layer.cornerRadius = 10.0
+        contentView.layer.masksToBounds = true
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 2.0)
+        layer.shadowRadius = 2.0
+        layer.shadowOpacity = 0.5
+        layer.masksToBounds = false
+        layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.contentView.layer.cornerRadius).cgPath
         
     }
     func setupSubviews() {

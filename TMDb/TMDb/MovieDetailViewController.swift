@@ -32,13 +32,15 @@ class MovieDetailViewController: UIViewController {
     var similarMovies = [SimilarMovie]()
     let string : String = "https://image.tmdb.org/t/p/w500"
     var poster = ""
-    let scrollView = UIScrollView()
-    let scrollContentView = UIView()
+//    var scrollView = UIScrollView(frame: CGRect(x: 0, y: 120, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+//    let scrollContentView = UIView()
     let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewLayout.init())
     let layout : UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     let indicatorView = UIActivityIndicatorView(style: .gray)
     var numberThatINeed: Int = 0
     let otherView = UIView()
+    let contentView = UIView()
+    let scrollView = UIScrollView()
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -50,12 +52,6 @@ class MovieDetailViewController: UIViewController {
             viewModel?.fetchMovieDetail(by: id)
             self.numberThatINeed = id
         }
-        print("movie id is fetched", movieID)
-        print("number that I really need shit",numberThatINeed)
-        
-        
-      
-     
         
         
         viewModelSimilar = SimilarViewModel()
@@ -81,43 +77,59 @@ class MovieDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         overviewLabel.translatesAutoresizingMaskIntoConstraints = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
         var constraints = [NSLayoutConstraint]()
         constraints += [
-            scrollView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
+//            scrollView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+//            scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
+//            scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
+//            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             otherView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             otherView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             otherView.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
             otherView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
-            imageView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 20),
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             imageView.widthAnchor.constraint(equalToConstant: 300),
             imageView.heightAnchor.constraint(equalToConstant: 400),
             imageView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 50),
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             overviewLabel.topAnchor.constraint(equalTo: label.bottomAnchor,constant: 20),
-            overviewLabel.heightAnchor.constraint(equalToConstant: 180),
-            overviewLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
-            seeButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
+//            overviewLabel.heightAnchor.constraint(equalToConstant: 180),
+//            overviewLabel.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 20),
+            overviewLabel.widthAnchor.constraint(equalToConstant: 400),
+            overviewLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            seeButton.widthAnchor.constraint(equalToConstant: 400),
             seeButton.heightAnchor.constraint(equalToConstant: 100),
             seeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            seeButton.topAnchor.constraint(equalTo: overviewLabel.bottomAnchor),
+            seeButton.topAnchor.constraint(equalTo: overviewLabel.bottomAnchor, constant: 20),
             similarLabel.topAnchor.constraint(equalTo: seeButton.bottomAnchor, constant: 20),
+            similarLabel.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 10),
             similarLabel.widthAnchor.constraint(equalToConstant: 200),
+            collectionView.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 10),
             collectionView.heightAnchor.constraint(equalToConstant: 200),
             collectionView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
             collectionView.topAnchor.constraint(equalTo: similarLabel.bottomAnchor, constant: 10),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             indicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            indicatorView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            indicatorView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ]
+        
         NSLayoutConstraint.activate(constraints)
     }
     
     func setupSubviews() {
         view.addSubview(otherView)
         view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -125,50 +137,57 @@ class MovieDetailViewController: UIViewController {
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cellId")
         collectionView.setCollectionViewLayout(layout, animated: true)
         
-        scrollView.addSubview(label)
-        scrollView.addSubview(overviewLabel)
-        scrollView.addSubview(imageView)
-        scrollView.addSubview(similarLabel)
-        scrollView.addSubview(seeButton)
-        scrollView.addSubview(collectionView)
+        contentView.addSubview(label)
+        contentView.addSubview(overviewLabel)
+        contentView.addSubview(imageView)
+        contentView.addSubview(similarLabel)
+        contentView.addSubview(seeButton)
+        contentView.addSubview(collectionView)
         view.addSubview(indicatorView)
     }
     
     func setupStyle() {
-        self.scrollView.contentSize = CGSize(width:UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         self.scrollView.isScrollEnabled = true
         self.scrollView.frame = view.bounds
-        layout.itemSize  = CGSize(width: 100, height: 200)
-        layout.minimumLineSpacing = 1
+        layout.itemSize  = CGSize(width: 120, height: 200)
+        layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 1
-        layout.scrollDirection = .horizontal 
+        layout.scrollDirection = .horizontal
         collectionView.backgroundColor = .white
         overviewLabel.numberOfLines = 0
         overviewLabel.backgroundColor = .clear
+        overviewLabel.font = UIFont.systemFont(ofSize: 20)
+        overviewLabel.textAlignment = .justified
         label.backgroundColor = .clear
+        label.font = UIFont.boldSystemFont(ofSize: 30)
         imageView.backgroundColor = .clear
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 5
         similarLabel.text = "Similar movies:"
-        
+        similarLabel.font = UIFont.systemFont(ofSize: 25)
         seeButton.setTitle("SEE IMAGES", for: .normal)
         seeButton.backgroundColor = .clear
-        seeButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Thin", size: 25)
+        seeButton.titleLabel?.font = UIFont.systemFont(ofSize: 30)
         seeButton.setTitleColor(.black, for: .normal)
         seeButton.layer.borderWidth = 1
         seeButton.layer.borderColor = UIColor.black.cgColor
         seeButton.layer.cornerRadius = 5
         seeButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        collectionView.backgroundColor = .clear
     }
     @objc func buttonAction(sender: UIButton) {
         print("Button tapped")
         let vc = MovieImagesViewController()
         vc.movieID = numberThatINeed
         navigationController?.pushViewController(vc, animated: true)
-        
        
     }
+    
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//        self.scrollView.contentSize = CGSize(width:UIScreen.main.bounds.width, height: contentView.frame.height)
+//    }
 
 }
 extension MovieDetailViewController: MovieDetailViewModelDelegate {
@@ -176,21 +195,17 @@ extension MovieDetailViewController: MovieDetailViewModelDelegate {
         DispatchQueue.main.async {
             
             self.movie = movie
-//            print("dispatch",movie)
             self.label.text = movie[0].title
-            self.overviewLabel.text = movie[0].overview
-            self.poster = movie[0].poster_path!
+            self.overviewLabel.text = "Overview: "+(movie[0].overview ?? "kjg")
+            self.poster = movie[0].posterPath!
             let str = "https://image.tmdb.org/t/p/w500"
             let imgUrl = str+self.poster
             let imageUrl = NSURL(string: imgUrl)
             let imagedata = NSData(contentsOf: imageUrl as! URL)
             self.imageView.image = UIImage(data: imagedata as! Data)
-//            let otherView = UIView(frame: self.view.frame)
             self.otherView.backgroundColor = UIColor(patternImage: UIImage(data: imagedata! as Data)!.alpha(0.1))
-//            self.view.addSubview(otherView)
-//            print(self.poster)
             self.indicatorView.stopAnimating()
-            
+            self.scrollView.contentSize = CGSize(width:UIScreen.main.bounds.width, height: self.contentView.frame.height)
         }
     }
     
@@ -206,7 +221,8 @@ extension MovieDetailViewController: MovieDetailViewModelDelegate {
         }
     }
 }
-let names = ["sds","sdsd","sdsd"]
+
+
 extension MovieDetailViewController : UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return similarMovies.count
@@ -214,25 +230,25 @@ extension MovieDetailViewController : UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: SimilarMoviesCollectionViewCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
-        guard let poster = similarMovies[indexPath.row].poster_path else {
+        guard let poster = similarMovies[indexPath.row].posterPath else {
             return collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath)
         }
         let str = "https://image.tmdb.org/t/p/w500"
-        var urlImage = str+poster
+        let urlImage = str+poster
         let imageUrl = NSURL(string: urlImage )
-        let imageData = NSData(contentsOf: imageUrl as! URL)
-        cell.imageView.image = UIImage(data: imageData as! Data)
+        let imageData = NSData(contentsOf: imageUrl! as URL)
+        cell.imageView.image = UIImage(data: imageData! as Data)
         return cell
     }
     
-    
 }
 extension MovieDetailViewController : SimilarViewModelDelegate {
+    
     func performOnFetch(movies: [SimilarMovie]) {
         DispatchQueue.main.async {
-            self.indicatorView.stopAnimating()
             self.similarMovies = movies
             self.collectionView.reloadData()
+            self.indicatorView.stopAnimating()
         }
     }
     

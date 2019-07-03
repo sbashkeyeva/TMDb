@@ -10,7 +10,6 @@ import Foundation
 import  UIKit
 class PopularViewModel: PopularViewModelProtocol {
     
-    
     weak var delegate: PopularViewModelDelegate?
     
     func fetchPopularMovies() {
@@ -23,12 +22,11 @@ class PopularViewModel: PopularViewModelProtocol {
 //                print("success")
                 let list: MovieContainer = convert(object: object)
 //                print("list \(list)")
-                for i in list.results {
-                    popularMovies.append(i)
+                for item in list.results {
+                    popularMovies.append(item)
 //                    print(i.poster_path)
 //                     print(i)
                 }
-               
                 self?.delegate?.performOnFetch(movies: popularMovies )
             case .failure(let error):
 //                print("failure")
@@ -37,4 +35,3 @@ class PopularViewModel: PopularViewModelProtocol {
         }
     }
 }
-

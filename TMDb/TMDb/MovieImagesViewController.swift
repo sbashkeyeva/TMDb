@@ -76,14 +76,21 @@ extension MovieImagesViewController: UICollectionViewDelegate, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: ImageMoviesCollectionViewCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
-        guard let posterPath = imageMovies[indexPath.row].file_path else {
+        guard let posterPath = imageMovies[indexPath.row].filePath else {
             return collectionView.dequeueReusableCell(withReuseIdentifier: "cellID", for: indexPath)
         }
         let url = "https://image.tmdb.org/t/p/w500"
         let urlImage = url+posterPath
-        let imageURL = NSURL(string: urlImage )
-        let imageData = NSData(contentsOf: imageURL as! URL)
-        cell.imageView.image = UIImage(data: imageData as! Data)
+        guard let imageURL = URL(string: urlImage ) else { return UICollectionViewCell() }
+        guard let imageData =  try? Data(contentsOf: imageURL as URL) else { return UICollectionViewCell() }
+        var image = UIImage()
+        if let data = imageData as? Data {
+            image = UIImage(data: data) ?? UIImage()
+        } else {
+            image = UIImage()
+        }
+        cell.imageView.image = image
+        
         return cell
     }
     

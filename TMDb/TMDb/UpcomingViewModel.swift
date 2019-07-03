@@ -8,7 +8,7 @@
 
 import Foundation
 class UpcomingViewModel: UpcomingViewModelProtocol {
-    var delegate: UpcomingViewModelDelegate?
+    weak var delegate: UpcomingViewModelDelegate?
     
     func fetchUpcomingMovies() {
         
@@ -21,11 +21,10 @@ class UpcomingViewModel: UpcomingViewModelProtocol {
                 print("success")
                 let list: UpcomingContainer = convert(object: object)
                 print("list \(list)")
-                for i in list.results {
-                    upcomingMovies.append(i)
+                for item in list.results {
+                    upcomingMovies.append(item)
 //                    print(i)
                 }
-                
                 self?.delegate?.performOnFetch(movies: upcomingMovies)
             case .failure(let error):
                 print("failure")
@@ -33,6 +32,4 @@ class UpcomingViewModel: UpcomingViewModelProtocol {
             }
         }
     }
-    
-
 }

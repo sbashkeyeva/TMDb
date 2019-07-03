@@ -95,7 +95,7 @@ var session: URLSession = {
 }()
 
 enum Result {
-    case success(object: Any)
+    case success(object: Data)
     case failure(error: Error)
 }
 

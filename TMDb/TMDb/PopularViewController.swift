@@ -91,7 +91,7 @@ extension PopularViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell : PopularCollectionViewCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
         let url = "https://image.tmdb.org/t/p/w500"
-        guard let poster = popularMovies[indexPath.row].poster_path else {
+        guard let poster = popularMovies[indexPath.row].posterPath else {
             return collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath)
         }
         let urlImage = url+poster

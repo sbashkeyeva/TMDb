@@ -13,6 +13,9 @@ class UpcomingContainer: Codable {
 }
 
 class UpcomingMovie: Codable {
-    let poster_path: String?
+    let posterPath: String?
+    enum CodingKeys: String, CodingKey {
+        case posterPath = "poster_path"
+    }
 }
 

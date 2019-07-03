@@ -29,7 +29,6 @@ class UpcomingViewController: UIViewController {
         viewModel = UpcomingViewModel()
         viewModel?.fetchUpcomingMovies()
     }
-    
     func setupConstraints() {
         var constraints = [NSLayoutConstraint]()
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -42,11 +41,9 @@ class UpcomingViewController: UIViewController {
         
         NSLayoutConstraint.activate(constraints)
     }
-    
     func setupStyle() {
         collectionView.backgroundColor = .white
     }
-    
     func setupSubviews() {
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -61,46 +58,49 @@ class UpcomingViewController: UIViewController {
         view.addSubview(collectionView)
     }
 }
-extension UpcomingViewController: UICollectionViewDelegate,UICollectionViewDataSource {
+extension UpcomingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return upcomingMovies.count
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell : UpcomingCollectionViewCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
+    func collectionView(_ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell : UpcomingCollectionViewCell =
+            collectionView.dequeueReusableCell(forIndexPath: indexPath)
         let url = "https://image.tmdb.org/t/p/w500"
-        guard let poster  = upcomingMovies[indexPath.row].poster_path else {
+        guard let poster  = upcomingMovies[indexPath.row].posterPath else {
             return collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath)
         }
         let urlImage = url+poster
-        let imageUrl = NSURL(string: urlImage)
-        let imageData = NSData(contentsOf: imageUrl as! URL)
-        cell.imageView.image = UIImage(data: imageData as! Data)
+        guard let imageUrl = URL(string: urlImage) else { return UICollectionViewCell() }
+        guard let imageData = try? Data(contentsOf: imageUrl) else { return UICollectionViewCell() }
+        var image = UIImage()
+        if let data = imageData as? Data {
+            image = UIImage(data: data) ?? UIImage()
+        } else {
+            image = UIImage()
+        }
+        cell.imageView.image = image
         return cell
     }
 }
 
 extension UpcomingViewController: UpcomingViewModelDelegate {
-    
     func performOnFetch(movies: [UpcomingMovie]) {
-        
         DispatchQueue.main.async {
             self.upcomingMovies = movies
             self.collectionView.reloadData()
             self.indicatorView.stopAnimating()
         }
     }
-    
     func performOnError(_ error: Error) {
         DispatchQueue.main.async {
             self.indicatorView.stopAnimating()
-            let alertController = UIAlertController(title: "Ошибка", message: "Возникла проблема при загрузке данных", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Ошибка",
+                message: "Возникла проблема при загрузке данных",
+                preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "OK", style: .cancel)
             alertController.addAction(cancelAction)
             self.present(alertController, animated: true)
-            
         }
     }
-    
-    
 }

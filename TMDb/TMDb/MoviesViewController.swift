@@ -20,26 +20,20 @@ extension ReusableView where Self: UIView {
 
 class MoviesViewController: UIViewController {
     let tableView = UITableView()
-    var names = ["Popular","Upcoming"]
+    var names = ["Popular", "Upcoming"]
     var index = 0
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.navigationController!.navigationBar.topItem!.title = "ShowTime"
-//        let attrs = [
-//            NSAttributedString.Key.foregroundColor: UIColor.red,
-//            NSAttributedString.Key.font: UIFont(name: "Georgia-Bold", size: 50)!
-//        ]
-//        UINavigationBar.appearance().titleTextAttributes = attrs
         addSubviews()
         addConstraints()
     }
-    func addSubviews(){
+    func addSubviews() {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(MovieTableViewCell.self)
         view.addSubview(tableView)
     }
-    func addConstraints(){
+    func addConstraints() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         var constraints = [NSLayoutConstraint]()
         constraints += [
@@ -62,8 +56,7 @@ extension MoviesViewController: UITableViewDelegate,UITableViewDataSource {
         cell.movieLabel.text = names[indexPath.row]
         return cell
     }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-    {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 90
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -79,7 +72,6 @@ extension MoviesViewController: UITableViewDelegate,UITableViewDataSource {
         default:
             navigationController?.pushViewController(destination, animated: true)
         }
-        
     }
     
 }

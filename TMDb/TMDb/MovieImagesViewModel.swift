@@ -9,7 +9,7 @@
 import Foundation
 
 class MovieImagesViewModel : MovieImagesViewModelProtocol {
-    var delegate: MovieImagesViewModelDelegate?
+    weak var delegate: MovieImagesViewModelDelegate?
     
     func fetchMovieImages(by id: Int) {
         var imageMovies = [ImageMovie]()
@@ -21,13 +21,13 @@ class MovieImagesViewModel : MovieImagesViewModelProtocol {
             switch result {
             case .success(let object):
                 print("success")
-                print("deatail movie object",object)
+                print("deatail movie object", object)
                 let movies: ImageMovieContainer = convert(object: object)
                 print(movies)
-                for i in movies.posters {
-                    imageMovies.append(i)
+                for item in movies.posters {
+                    imageMovies.append(item)
 //                    print(i.file_path)
-                    posterPath.append(i.file_path!)
+                    posterPath.append(item.filePath!)
                     
                 }
                 print(posterPath)

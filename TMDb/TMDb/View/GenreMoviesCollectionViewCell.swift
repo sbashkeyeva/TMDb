@@ -39,6 +39,13 @@ class GenreMoviesCollectionViewCell: UICollectionViewCell, ReusableView {
     }
     
     func setupStyle() {
-        imageView.backgroundColor = .yellow
+        contentView.layer.cornerRadius = 10.0
+        contentView.layer.masksToBounds = true
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 2.0)
+        layer.shadowRadius = 2.0
+        layer.shadowOpacity = 0.5
+        layer.masksToBounds = false
+        layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.contentView.layer.cornerRadius).cgPath
     }
 }

@@ -27,7 +27,6 @@ class MovieTableViewCell: UITableViewCell, ReusableView {
     func setupStyle() {
         movieLabel.font = UIFont(name: "Helvetica Neue", size: 30)
         movieLabel.textAlignment = .center
-        
     }
     func setupConstraints() {
         movieLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -40,8 +39,8 @@ class MovieTableViewCell: UITableViewCell, ReusableView {
         ]
         NSLayoutConstraint.activate(constraints)
     }
-    func setLabel(_ g : Genre) {
-        movieLabel.text = g.name
+    func setLabel(_ genre : Genre) {
+        movieLabel.text = genre.name
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
